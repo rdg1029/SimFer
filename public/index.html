@@ -9,15 +9,23 @@
 
 <body>
     <div class="upload-container">
-        <h2>파일 업로드</h2>
+        <p id="loading" style="display: none;">Loading...</p>
         <div class="upload-area" id="uploadArea">
-            <p>파일을 이곳에 드래그하거나 클릭하여 선택하세요.</p>
+            <h2>파일 업로드</h2>
+            <p>클릭 또는 파일 드래그</p>
             <input type="file" id="fileInput" multiple hidden>
         </div>
-        <div class="file-info" id="fileInfo" style="display: none;">
+        <div class="info" id="fileInfo" style="display: none;">
             <p id="fileName"></p>
-            <button id="uploadButton">업로드</button>
             <button id="cancelButton">취소</button>
+            <button id="uploadButton">공유</button>
+        </div>
+        <div class="info" id="uploadInfo" style="display: none;">
+            <p id="infoHash"></p>
+            <img id="qrcodeArea" />
+        </div>
+        <div class="info" id="downloadInfo" style="display: none;">
+            <p id="downloadStatus"></p>
         </div>
     </div>
 </body>
@@ -77,17 +85,17 @@
         border-color: #007bff;
     }
 
-    .file-info {
+    .info {
         margin-top: 20px;
     }
 
-    .file-info p {
+    .info p {
         margin-bottom: 15px;
         font-size: 1.2em;
         color: #333333;
     }
 
-    .file-info button {
+    .info button {
         margin: 5px;
         padding: 10px 20px;
         font-size: 1em;
@@ -99,8 +107,24 @@
         transition: background-color 0.3s;
     }
 
-    .file-info button:hover {
+    .info button:hover {
         background-color: #0056b3;
+    }
+
+    .download-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    .download-link:hover {
+        background-color: #0056b3;
+        color: #ffffff;
     }
 
     #cancelButton {
