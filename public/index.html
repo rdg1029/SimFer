@@ -4,28 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimFer - Simple File Transfer (P2P)</title>
+    <title>SimFer - Simplest File Transfer</title>
+    <meta name="description" content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <meta name="keywords" content="File Transfer, File Sharing, P2P, WebTorrent, WebRTC, Browser-based File Sharing, Decentralized File Transfer, Real-time File Sharing, Secure File Transfer, Peer-to-Peer Networking, Instant File Sharing, Online File Transfer, Large File Transfer">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simfer.pages.dev/">
+    <meta property="og:title" content="SimFer - Simplest File Transfer">
+    <meta property="og:description" content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <meta property="og:url" content="https://simfer.pages.dev/">
+    <meta property="og:type" content="website">
+    <!-- <meta property="og:image" content="https://simfer.pages.dev/images/og-image.jpg"> -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SimFer - Simplest File Transfer">
+    <meta name="twitter:description" content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <!-- <meta name="twitter:image" content="https://simfer.pages.dev/images/twitter-image.jpg"> -->
 </head>
 
 <body>
     <div class="upload-container">
         <p id="loading" style="display: none;">Loading...</p>
         <div class="upload-area" id="uploadArea">
-            <h2>파일 업로드</h2>
-            <p>클릭 또는 파일 드래그</p>
+            <h2>Upload Files</h2>
+            <p>Click or Drag files</p>
             <input type="file" id="fileInput" multiple hidden>
         </div>
         <div class="info" id="fileInfo" style="display: none;">
             <p id="fileName"></p>
-            <button id="cancelButton">취소</button>
-            <button id="uploadButton">공유</button>
+            <button id="uploadButton">Share</button>
+            <button id="cancelButton">Cancel</button>
         </div>
         <div class="info" id="uploadInfo" style="display: none;">
-            <p id="infoHash"></p>
-            <img id="qrcodeArea" />
+            <h2>Share Link</h2>
+            <p id="infoHash" style="text-decoration: underline;"></p>
+            <button id="copyURL">Copy URL</button>
+            <img id="qrcodeArea" style="margin: 8px; font-weight: bold;" />
+            <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file transfer!</p>
         </div>
         <div class="info" id="downloadInfo" style="display: none;">
             <p id="downloadStatus"></p>
+            <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file transfer!</p>
         </div>
     </div>
 </body>
@@ -93,10 +110,12 @@
         margin-bottom: 15px;
         font-size: 1.2em;
         color: #333333;
+        overflow-wrap: anywhere;
     }
 
     .info button {
-        margin: 5px;
+        display: block;
+        margin: 5px auto;
         padding: 10px 20px;
         font-size: 1em;
         color: #ffffff;
@@ -112,8 +131,9 @@
     }
 
     .download-link {
-        display: inline-block;
+        display: block;
         padding: 10px 20px;
+        margin: 8px;
         background-color: #007bff;
         color: #ffffff;
         text-decoration: none;
