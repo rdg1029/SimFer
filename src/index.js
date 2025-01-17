@@ -1,6 +1,6 @@
 import WebTorrent from "webtorrent/dist/webtorrent.min.js";
 
-let uploadedFiles;
+let uploadedFiles, uploadedInfoHash, otpServerEnabled = false;
 const client = new WebTorrent();
 
 function getMagnetLink(infoHash) {
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadingText = document.getElementById('loading');
   const uploadArea = document.getElementById('uploadArea');
   const otpArea = document.getElementById('otpArea');
+  const otpMsg = document.getElementById('otpMsg');
   const otpSubmit = document.getElementById('otpSubmit');
   const fileInput = document.getElementById('fileInput');
   const fileInfo = document.getElementById('fileInfo');
@@ -33,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelButton = document.getElementById('cancelButton');
   const uploadInfo = document.getElementById('uploadInfo');
   const infoHash = document.getElementById('infoHash');
+  const otpViewer = document.getElementById('otpViewer');
+  const createOTP = document.getElementById('createOTP');
   const copyURL = document.getElementById('copyURL');
   const downloadInfo = document.getElementById('downloadInfo');
   const downloadStatus = document.getElementById('downloadStatus');
@@ -40,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadItems = document.getElementById('downloadItems');
   const qrcodeArea = document.getElementById('qrcodeArea');
   const otpInputs = document.querySelectorAll(".otp-input");
+
+  // Check OTP server
+  fetch(`${process.env.OTP_BASE_URL}/`).then(res => {
+    otpServerEnabled = res.status === 204;
+    otpMsg.style.display = 'none';
+  });
 
   function displayElem(name) {
     loadingText.style.display = name === 'loading' ? 'block' : 'none';
@@ -57,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function onTorrentSeed(torrent) {
-    const shareUrl = `https://${window.location.host}?h=${torrent.infoHash}`
+    uploadedInfoHash = torrent.infoHash;
+    const shareUrl = `https://${window.location.host}?h=${uploadedInfoHash}`
     infoHash.textContent = shareUrl;
     copyURL.onclick = () => {
       navigator.clipboard.writeText(shareUrl).then(() => copyURL.textContent = 'Copied');
@@ -178,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkAllInputsFilled() {
+    if (!otpServerEnabled) return;
     const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
     if (allFilled) {
       otpSubmit.disabled = false;
@@ -211,6 +222,52 @@ document.addEventListener('DOMContentLoaded', () => {
   otpSubmit.onclick = () => {
     if (otpSubmit.disabled) return;
     const otp = Array.from(otpInputs).map(e => e.value).toString().replaceAll(',', '');
-    console.log(otp);
+    fetch(`${process.env.OTP_BASE_URL}/get?otp=${otp}`).then(async (res) => {
+      if (res.status !== 200) {
+        otpMsg.style.display = 'block';
+        otpMsg.textContent = 'Password not found.';
+        return;
+      }
+      otpMsg.style.display = 'none';
+      const infohash = await res.text();
+      displayElem('loading');
+      client.add(getMagnetLink(infohash), onTorrentAdd);
+    });
+  }
+
+  createOTP.onclick = () => {
+    if (createOTP.classList.contains('disabled')) return;
+    createOTP.textContent = 'Loading...';
+
+    fetch(`${process.env.OTP_BASE_URL}/create`, {
+      mode: 'cors',
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ infohash: uploadedInfoHash })
+    }).then(async (res) => {
+      if (res.status !== 200) return;
+
+      createOTP.classList.add("disabled");
+
+      const otp = await res.text();
+
+      const endTime = Date.now() + 30000;
+      const interval = setInterval(() => {
+        const now = Date.now();
+        if (now >= endTime) {
+          clearInterval(interval);
+          createOTP.classList.remove("disabled");
+          createOTP.textContent = 'Create OTP';
+          otpViewer.style.display = 'none';
+
+          fetch(`${process.env.OTP_BASE_URL}/delete?otp=${otp}`).then(res => res.text().then(msg => console.log(msg)));
+          return;
+        }
+        createOTP.textContent = `${Math.round((endTime - now) / 1000)}s`;
+      }, 1000);
+
+      otpViewer.textContent = otp;
+      otpViewer.style.display = 'block';
+    });
   }
 });

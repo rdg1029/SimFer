@@ -42,6 +42,7 @@
                 <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
                 <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
             </form>
+            <div id="otpMsg" class="msg-text">Checking OTP server...</div>
             <button id="otpSubmit" class="otp-submit" disabled>Submit</button>
         </div>
         <div class="info" id="fileInfo" style="display: none;">
@@ -51,10 +52,12 @@
         </div>
         <div class="info" id="uploadInfo" style="display: none;">
             <h2>Share Link</h2>
-            <p id="infoHash" style="text-decoration: underline;"></p>
-            <button id="copyURL">Copy URL</button>
-            <img id="qrcodeArea" style="margin: 8px; font-weight: bold;" />
             <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file sharing!</p>
+            <p id="infoHash" style="text-decoration: underline;"></p>
+            <img id="qrcodeArea" style="margin: 8px; font-weight: bold;" />
+            <h1 id="otpViewer" style="letter-spacing: 4px;"></h1>
+            <button id="copyURL">Copy URL</button>
+            <button id="createOTP">Create OTP</button>
         </div>
         <div class="info" id="downloadInfo" style="display: none;">
             <p id="downloadStatus"></p>
@@ -164,6 +167,12 @@
         cursor: pointer;
     }
 
+    .msg-text {
+        margin: 8px;
+        color: #333333;
+        font-size: small;
+    }
+
     .info {
         margin-top: 20px;
     }
@@ -188,7 +197,14 @@
         transition: background-color 0.3s;
     }
 
+    .info button.disabled {
+        background-color: #ccc;
+        color: #000;
+        cursor: not-allowed;
+    }
+
     .info button:hover {
+        color: #fff;
         background-color: #0056b3;
     }
 
