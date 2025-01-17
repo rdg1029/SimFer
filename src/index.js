@@ -24,6 +24,8 @@ window.onbeforeunload = (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   const loadingText = document.getElementById('loading');
   const uploadArea = document.getElementById('uploadArea');
+  const otpArea = document.getElementById('otpArea');
+  const otpSubmit = document.getElementById('otpSubmit');
   const fileInput = document.getElementById('fileInput');
   const fileInfo = document.getElementById('fileInfo');
   const fileNameDisplay = document.getElementById('fileName');
@@ -37,10 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadAll = document.getElementById('downloadAll');
   const downloadItems = document.getElementById('downloadItems');
   const qrcodeArea = document.getElementById('qrcodeArea');
+  const otpInputs = document.querySelectorAll(".otp-input");
 
   function displayElem(name) {
     loadingText.style.display = name === 'loading' ? 'block' : 'none';
     uploadArea.style.display = name === 'upload-area' ? 'block' : 'none';
+    otpArea.style.display = name === 'upload-area' ? 'block' : 'none';
     fileInfo.style.display = name === 'file-info' ? 'block' : 'none';
     uploadInfo.style.display = name === 'upload-info' ? 'block' : 'none';
     downloadInfo.style.display = name === 'download-info' ? 'block' : 'none';
@@ -171,5 +175,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 파일 이름 초기화
     fileNameDisplay.textContent = '';
+  }
+
+  function checkAllInputsFilled() {
+    const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+    if (allFilled) {
+      otpSubmit.disabled = false;
+      otpSubmit.classList.add("enabled");
+    } else {
+      otpSubmit.disabled = true;
+      otpSubmit.classList.remove("enabled");
+    }
+  }
+
+  otpInputs.forEach((input, index) => {
+    input.addEventListener("input", (e) => {
+      const value = e.target.value;
+      if (value.match(/[^0-9]/)) {
+        e.target.value = "";
+        return;
+      }
+      if (value.length === 1 && index < otpInputs.length - 1) {
+        otpInputs[index + 1].focus();
+      }
+      checkAllInputsFilled();
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !e.target.value && index > 0) {
+        otpInputs[index - 1].focus();
+      }
+    });
+  });
+
+  otpSubmit.onclick = () => {
+    if (otpSubmit.disabled) return;
+    const otp = Array.from(otpInputs).map(e => e.value).toString().replaceAll(',', '');
+    console.log(otp);
   }
 });

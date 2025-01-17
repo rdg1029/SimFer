@@ -5,18 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SimFer - Simplest File Transfer</title>
-    <meta name="description" content="The simplest way to share files directly through your browser—no installations, no registration.">
-    <meta name="keywords" content="File Transfer, File Sharing, P2P, WebTorrent, WebRTC, Browser-based File Sharing, Decentralized File Transfer, Real-time File Sharing, Secure File Transfer, Peer-to-Peer Networking, Instant File Sharing, Online File Transfer, Large File Transfer">
+    <meta name="description"
+        content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <meta name="keywords"
+        content="File Transfer, File Sharing, P2P, WebTorrent, WebRTC, Browser-based File Sharing, Decentralized File Transfer, Real-time File Sharing, Secure File Transfer, Peer-to-Peer Networking, Instant File Sharing, Online File Transfer, Large File Transfer">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://simfer.pages.dev/">
     <meta property="og:title" content="SimFer - Simplest File Transfer">
-    <meta property="og:description" content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <meta property="og:description"
+        content="The simplest way to share files directly through your browser—no installations, no registration.">
     <meta property="og:url" content="https://simfer.pages.dev/">
     <meta property="og:type" content="website">
     <!-- <meta property="og:image" content="https://simfer.pages.dev/images/og-image.jpg"> -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SimFer - Simplest File Transfer">
-    <meta name="twitter:description" content="The simplest way to share files directly through your browser—no installations, no registration.">
+    <meta name="twitter:description"
+        content="The simplest way to share files directly through your browser—no installations, no registration.">
     <!-- <meta name="twitter:image" content="https://simfer.pages.dev/images/twitter-image.jpg"> -->
 </head>
 
@@ -27,6 +31,18 @@
             <h2>Upload Files</h2>
             <p>Click or Drag files</p>
             <input type="file" id="fileInput" multiple hidden>
+        </div>
+        <div class="otp-area" id="otpArea">
+            <p>OR type OTP to download file.</p>
+            <form id="otp-form" class="otp-form" autocomplete="off">
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+            </form>
+            <button id="otpSubmit" class="otp-submit" disabled>Submit</button>
         </div>
         <div class="info" id="fileInfo" style="display: none;">
             <p id="fileName"></p>
@@ -102,6 +118,50 @@
     .upload-area.active {
         background-color: #e6f7ff;
         border-color: #007bff;
+    }
+
+    .otp-area {
+        margin-top: 8px;
+    }
+
+    .otp-form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 50px;
+        text-align: center;
+        font-size: 24px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: border-color 0.3s;
+    }
+
+    .otp-input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .otp-submit {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ccc;
+        color: #fff;
+        cursor: not-allowed;
+        transition: background-color 0.3s;
+    }
+
+    .otp-submit.enabled {
+        background-color: #007bff;
+        cursor: pointer;
     }
 
     .info {
