@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyURL = document.getElementById('copyURL');
   const downloadInfo = document.getElementById('downloadInfo');
   const downloadStatus = document.getElementById('downloadStatus');
+  const downloadAll = document.getElementById('downloadAll');
+  const downloadItems = document.getElementById('downloadItems');
   const qrcodeArea = document.getElementById('qrcodeArea');
 
   function displayElem(name) {
@@ -74,17 +76,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     torrent.on('done', async () => {
       downloadStatus.textContent = 'Done (File sharing enabled)';
+      downloadItems.style.display = 'block';
+      if (torrent.files.length > 1) {
+        downloadAll.style.display = 'block';
+      }
+      const downloadItemsList = [];
       for (const file of torrent.files) {
         try {
           const blob = await file.blob();
-          downloadInfo.append(createFileLink(file.name, URL.createObjectURL(blob)));
-          // downloadInfo.append('<a href="' + URL.createObjectURL(blob) + '">Download full file: ' + file.name + '</a>');
-          // console.log('(Blob URLs only work if the file is loaded from a server. "http//localhost" works. "file://" does not.)');
-          // console.log('File done.');
-          // console.log('<a href="' + URL.createObjectURL(blob) + '">Download full file: ' + file.name + '</a>');
+          const downloadItem = createFileLink(file.name, URL.createObjectURL(blob));
+          downloadItemsList.push(downloadItem);
         } catch (err) {
           if (err) console.log(err.message);
         }
+      }
+      downloadItems.append(...downloadItemsList);
+      downloadAll.onclick = () => {
+        downloadItemsList.forEach(elem => {
+          elem.click();
+        });
       }
     });
 
