@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
@@ -35,6 +36,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html',
             favicon: './public/favicon.png',
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {from: './public/ads.txt', to: 'ads.txt'},
+            ]
         }),
         new CleanWebpackPlugin(),
     ],
