@@ -40,6 +40,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {from: './public/ads.txt', to: 'ads.txt'},
+                {from: './public/img/', to: 'img/'},
             ]
         }),
         new CleanWebpackPlugin(),
