@@ -34,62 +34,295 @@
 </head>
 
 <body>
-    <div class="upload-container">
-        <p id="loading" style="display: none;">Loading...</p>
-        <div class="upload-area" id="uploadArea">
-            <h2>Upload Files</h2>
-            <p>Click or Drag files</p>
-            <input type="file" id="fileInput" multiple hidden>
-        </div>
-        <div class="otp-area" id="otpArea">
-            <p>OR type OTP to download file.</p>
-            <form id="otp-form" class="otp-form" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
-            </form>
-            <div id="otpMsg" class="msg-text">Checking OTP server...</div>
-            <button id="otpSubmit" class="otp-submit" disabled>Submit</button>
-        </div>
-        <div class="info" id="fileInfo" style="display: none;">
-            <p id="fileName"></p>
-            <button id="uploadButton">Share</button>
-            <button id="cancelButton">Cancel</button>
-        </div>
-        <div class="info" id="uploadInfo" style="display: none;">
-            <h2>Share Link</h2>
-            <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file sharing!</p>
-            <p id="infoHash" style="text-decoration: underline;"></p>
-            <img id="qrcodeArea" style="margin: 8px; font-weight: bold;" />
-            <h1 id="otpViewer" style="letter-spacing: 4px;"></h1>
-            <button id="copyURL">Copy URL</button>
-            <button id="createOTP">Create OTP</button>
-        </div>
-        <div class="info" id="downloadInfo" style="display: none;">
-            <p id="downloadStatus"></p>
-            <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file sharing!</p>
-            <button id="downloadAll" style="display: none;">DOWNLOAD ALL</button>
-            <div id="downloadItems" style="display: none;"></div>
-        </div>
+    <div id="container">
+        <header>
+            <h1>SimFer</h1>
+            <p>The simplest way to share files directly through your browser—no installations, no registration required.
+            </p>
+            <p><a href="#purpose">About</a> | <a href="#features">Features</a> | <a href="#how-it-works">How It
+                    Works</a> | <a href="#faq">FAQ</a></p>
+        </header>
+        <section>
+            <div class="upload-container">
+                <p id="loading" style="display: none;">Loading...</p>
+                <div class="upload-area" id="uploadArea">
+                    <h2>Upload Files</h2>
+                    <p>Click or Drag files</p>
+                    <input type="file" id="fileInput" multiple hidden>
+                </div>
+                <div class="otp-area" id="otpArea">
+                    <p>OR type OTP to download file.</p>
+                    <form id="otp-form" class="otp-form" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="\d*" inputmode="numeric" required>
+                    </form>
+                    <div id="otpMsg" class="msg-text">Checking OTP server...</div>
+                    <button id="otpSubmit" class="otp-submit" disabled>Submit</button>
+                </div>
+                <div class="info" id="fileInfo" style="display: none;">
+                    <p id="fileName"></p>
+                    <button id="uploadButton">Share</button>
+                    <button id="cancelButton">Cancel</button>
+                </div>
+                <div class="info" id="uploadInfo" style="display: none;">
+                    <h2>Share Link</h2>
+                    <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file sharing!</p>
+                    <p id="infoHash" style="text-decoration: underline;"></p>
+                    <img id="qrcodeArea" style="margin: 8px; font-weight: bold;" />
+                    <h1 id="otpViewer" style="letter-spacing: 4px;"></h1>
+                    <button id="copyURL">Copy URL</button>
+                    <button id="createOTP">Create OTP</button>
+                </div>
+                <div class="info" id="downloadInfo" style="display: none;">
+                    <p id="downloadStatus"></p>
+                    <p style="font-weight: bold; color: tomato;">Closing the tab will stop the file sharing!</p>
+                    <button id="downloadAll" style="display: none;">DOWNLOAD ALL</button>
+                    <div id="downloadItems" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+        <main>
+            <div id="purpose">
+                <h2>About SimFer</h2>
+                <p>SimFer is a user-friendly platform designed to make file sharing as seamless as possible. By
+                    prioritizing simplicity and accessibility, SimFer allows users to transfer files directly between
+                    devices without the need for complex software or third-party services. With a few clicks, users can
+                    upload their files, generate a sharing link or OTP (One-Time Password), and send it to their
+                    intended recipients for instant access.</p>
+
+                <p>Unlike traditional file transfer methods that often require time-consuming uploads to servers or
+                    cloud platforms, SimFer focuses on direct sharing between users. This approach not only saves time
+                    but also provides a streamlined experience where files are accessible in real-time. SimFer is
+                    particularly well-suited for those who want to share files without dealing with unnecessary steps
+                    like account creation or lengthy setup processes.</p>
+
+                <p>Designed with everyday users in mind, SimFer ensures that even those who are less tech-savvy can
+                    easily share files. Its intuitive drag-and-drop functionality, simple interface, and step-by-step
+                    prompts make the entire process straightforward. Whether you're working on a collaborative project,
+                    sending important documents to colleagues, or simply sharing memories with friends and family,
+                    SimFer offers a hassle-free way to get your files where they need to go.</p>
+
+                <p>One of SimFer's standout features is its focus on real-time sharing. By keeping the browser tab open
+                    during transfers, users can ensure uninterrupted delivery of their files. This real-time
+                    connectivity ensures that the transfer process is both efficient and reliable, allowing users to
+                    stay focused on their tasks without delays or interruptions.</p>
+
+                <p>SimFer is more than just a tool; it's a solution for individuals and teams looking to simplify file
+                    sharing. Its versatility, ease of use, and emphasis on providing a smooth user experience make it a
+                    go-to choice for anyone who values convenience and efficiency in their daily workflows.</p>
+            </div>
+            <!-- Purpose and Overview -->
+            <!-- <div id="purpose" class="description-area">
+                <h2>About SimFer</h2>
+                <p>SimFer is a browser-based file sharing tool that allows users to securely and instantly transfer
+                    files peer-to-peer without the need for third-party storage.</p>
+                <p>It's designed for simplicity, speed, and privacy.</p>
+                <p>Whether you're transferring small documents or large media files, SimFer makes it effortless by
+                    leveraging WebRTC and WebTorrent technologies to ensure a seamless experience.</p>
+            </div> -->
+
+            <!-- Features Section -->
+            <div id="features" class="description-area">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>File Upload:</strong> Drag and drop files to share instantly. The process is quick and
+                        effortless, allowing users to begin sharing files in seconds.</li>
+                    <li><strong>OTP:</strong> Download files using a one-time password, providing an alternative to
+                        sharing a link. This feature is particularly useful in situations where sharing a link is
+                        inconvenient or impractical, allowing recipients to access files securely and directly with the
+                        provided OTP.</li>
+                    <li><strong>Real-Time Sharing:</strong> Files are transferred directly between users without server
+                        delays. As the file travels directly from the uploader to the downloader, transfers are fast and
+                        efficient.</li>
+                    <li><strong>Distributed Sharing:</strong> Once a file is downloaded by a user, they also become a
+                        temporary sharer. This distributed sharing model allows for faster downloads as additional users
+                        contribute to the file transfer process.</li>
+                    <li><strong>Accelerated Speeds with Multiple Sharers:</strong> The more users who are sharing the
+                        file, the faster subsequent downloads can be. This peer-to-peer approach leverages shared
+                        bandwidth for optimized performance.</li>
+                    <li><strong>Cross-Platform:</strong> Works on any modern browser and device, ensuring compatibility
+                        across desktops, tablets, and smartphones. There’s no need for specialized hardware or software.
+                    </li>
+                    <li><strong>No Registration:</strong> Share files without creating an account or dealing with
+                        lengthy sign-up processes. SimFer is built for convenience and ease of use.</li>
+                    <li><strong>No Installation:</strong> Entirely browser-based, requiring no software downloads.
+                        Everything is handled within your browser, making the platform lightweight and accessible.</li>
+                </ul>
+            </div>
+
+            <!-- How It Works -->
+            <div id="how-it-works" class="description-area">
+                <h2>How It Works</h2>
+                <div>
+                    <h3>Step 1: Upload Files</h3>
+                    <p>Drag and drop files into the upload area or click to select files. Once uploaded, you’ll see the
+                        file name and sharing options.</p>
+                </div>
+                <div>
+                    <h3>Step 2: Generate Sharing Link</h3>
+                    <p>After uploading, SimFer generates a unique sharing link. You can also create a QR code or OTP for
+                        quick access.</p>
+                </div>
+                <div>
+                    <h3>Step 3: Download Files</h3>
+                    <p>Recipients can download files directly using the link or OTP. Ensure the browser tab remains open
+                        during transfers for uninterrupted sharing.</p>
+                </div>
+                <div>
+                    <h3>Step 4: Sharing Continues with Downloaders</h3>
+                    <p>Once a file is downloaded, the recipient’s browser also becomes a temporary sharer. This
+                        distributed sharing ensures that the file can continue to be downloaded by others, improving
+                        overall transfer efficiency.</p>
+                    <p><strong>Important:</strong> If all sharers close their browser tabs, the file can no longer be
+                        downloaded. To keep the file available, at least one sharer must keep their browser tab open.
+                    </p>
+                </div>
+                <p><strong>Note:</strong> Files are not stored on a server. Transfers happen directly between peers.</p>
+            </div>
+
+            <!-- Use Cases -->
+            <div id="use-cases" class="description-area">
+                <h2>Use Cases</h2>
+                <p>SimFer is designed to meet the diverse needs of users who require a reliable, secure, and efficient
+                    method for transferring files. Its versatility makes it a suitable choice for a wide range of
+                    scenarios, whether you're an individual sharing personal files or a team collaborating on
+                    professional projects. Here are some common use cases where SimFer excels:</p>
+
+                <ul>
+                    <li>
+                        <strong>Sharing documents, images, or videos with friends or colleagues:</strong>
+                        SimFer simplifies the process of sending files, whether it's a set of family photos, a video
+                        presentation, or a work-related document. With its intuitive drag-and-drop interface and instant
+                        sharing capabilities, you can quickly upload and share files without needing to worry about
+                        additional steps like email attachments or file size limits.
+                    </li>
+                    <li>
+                        <strong>Collaborating on projects with teammates or clients:</strong>
+                        For remote teams and freelancers, SimFer provides a practical solution to send project files,
+                        design drafts, or large datasets in real-time. The ability to generate shareable links or OTPs
+                        ensures that recipients can access files instantly, streamlining collaboration and reducing
+                        delays.
+                    </li>
+                    <li>
+                        <strong>Sharing media content without relying on cloud storage:</strong>
+                        Many users need to share high-resolution photos, videos, or audio files that are too large for
+                        email. SimFer eliminates the need for uploading these files to cloud storage platforms, enabling
+                        faster and more direct transfers without using third-party servers.
+                    </li>
+                    <li>
+                        <strong>Real-time sharing during meetings or events:</strong>
+                        During virtual meetings, webinars, or collaborative brainstorming sessions, participants can use
+                        SimFer to quickly exchange files without interrupting the flow of the event. From sharing
+                        presentation slides to distributing meeting notes, SimFer ensures seamless communication and
+                        sharing.
+                    </li>
+                    <li>
+                        <strong>Providing files to clients or customers:</strong>
+                        Small businesses and service providers can use SimFer to send deliverables such as invoices,
+                        reports, or project outputs directly to their clients. The simplicity of generating a link or
+                        OTP ensures that even non-technical users can easily download the files.
+                    </li>
+                    <li>
+                        <strong>Exchanging personal files with ease:</strong>
+                        Whether it's sending vacation photos to family, sharing a playlist with friends, or sending
+                        documents for school projects, SimFer makes personal file sharing as easy as possible. Users can
+                        enjoy the freedom of sharing files without worrying about storage limits or platform
+                        compatibility.
+                    </li>
+                </ul>
+
+                <p>These examples highlight the flexibility of SimFer in various contexts. No matter the scenario,
+                    SimFer is an invaluable tool for anyone looking to transfer files quickly, securely, and without
+                    complications.</p>
+            </div>
+
+            <!-- User Guide -->
+            <div id="user-guide" class="description-area">
+                <h2>User Guide</h2>
+                <p>Follow these steps to get started with SimFer:</p>
+                <ul>
+                    <img src="/img/guide_1.png" alt="Uploading Files" />
+                    <li><strong>Uploading Files:</strong> Drag and drop files into the upload area. Click the "Share"
+                        button to generate a link.</li>
+                    <img src="/img/guide_2.png" alt="Sharing Links" />
+                    <li><strong>Sharing Links:</strong> Copy the link or share the QR code with the recipient.</li>
+                    <img src="/img/guide_3.png" alt="Creating OTP" />
+                    <li><strong>Creating OTP:</strong> You can click "Create OTP" to generate a one-time password. Share
+                        the OTP
+                        with the recipient.</li>
+                    <img src="/img/guide_4.png" alt="Downloading Files" />
+                    <li><strong>Downloading Files:</strong> The recipient enters the OTP or clicks the link to start the
+                        download.</li>
+                    <li><strong>Important:</strong> Keep the browser tab open during the transfer. Closing the tab will
+                        stop the sharing process.</li>
+                </ul>
+            </div>
+
+            <!-- FAQ Section -->
+            <div id="faq" class="description-area">
+                <h2>Frequently Asked Questions</h2>
+                <h3>Is my data secure?</h3>
+                <p>Yes! SimFer uses end-to-end encryption to ensure that your files remain private and secure.</p>
+                <h3>What is the maximum file size I can share?</h3>
+                <p>There is no hard limit, but performance may vary depending on your internet connection.</p>
+                <h3>Do I need to keep my browser open?</h3>
+                <p>Yes, since SimFer uses peer-to-peer technology, the transfer will only complete while your browser is
+                    active.
+                </p>
+            </div>
+        </main>
+        <footer>
+            <p>© 2025 SimFer. All rights reserved.</p>
+        </footer>
     </div>
 </body>
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f4f4f9;
         font-family: Arial, sans-serif;
     }
 
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    #container {
+        max-width: 1024px;
+        margin: auto;
+    }
+
+    header {
+        text-align: center;
+    }
+
+    section {
+        box-sizing: border-box;
+        margin: auto;
+        padding: 0;
         min-height: 100vh;
-        background-color: #f4f4f9;
+    }
+
+    .description-area {
+        padding: 16px;
+    }
+
+    main {
+        padding: 8px;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    li {
+        padding: 8px;
+    }
+
+    img {
+        max-width: 100%;
     }
 
     .upload-container {
@@ -98,7 +331,8 @@
         border: 2px solid #007bff;
         border-radius: 10px;
         background-color: #ffffff;
-        width: 90%;
+        /* width: 90%; */
+        margin: auto;
         max-width: 400px;
     }
 
@@ -144,8 +378,8 @@
     }
 
     .otp-input {
-        width: 40px;
-        height: 50px;
+        width: 30px;
+        height: 40px;
         text-align: center;
         font-size: 24px;
         border: 2px solid #ccc;
